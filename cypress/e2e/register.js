@@ -11,15 +11,8 @@ describe('registration', () => {
     cy.getByLabelText(/password/i).type(user.password)
     cy.getByText(/submit/i).click()
 
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
-    cy.window()
-      .its('localStorage.token')
-      .should('be.a', 'string')
-
-    cy.getByTestId('username-display', {timeout: 500}).should(
-      'have.text',
-      user.username,
-    )
+    cy.assertHome()
+    cy.assertLoggedInAs(user)
   })
 
   it(`should show an error message if there's an error`, () => {
