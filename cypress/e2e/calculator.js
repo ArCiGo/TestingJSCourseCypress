@@ -13,14 +13,8 @@ describe('anonymous calculator', () => {
 
 describe('authenticated calculator', () => {
   it('displays the username', () => {
-    cy.createUser().then(user => {
+    cy.loginAsNewUser(user => {
       cy.visit('/')
-
-      cy.getByText(/login/i).click()
-      cy.getByLabelText(/username/i).type(user.username)
-      cy.getByLabelText(/password/i).type(user.password)
-      cy.getByText(/submit/i).click()
-
       cy.assertLoggedInAs(user)
       cy.getByText(/logout/i).click()
 
